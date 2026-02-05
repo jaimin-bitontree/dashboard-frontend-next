@@ -1,3 +1,5 @@
+import { ToastContainer } from 'react-toastify'
+import './globals.css'
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -5,7 +7,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <ToastContainer
+          autoClose={2000}
+          position="bottom-right"
+        ></ToastContainer>
+      </body>
     </html>
   )
 }

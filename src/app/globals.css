@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  /* colors */
+  --bg-page: #f3f4f6;
+  --white: #ffffff;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-disabled: #9ca3af;
+  --text-dark: #111827;
+  --text-gray: #374151;
+  --border-color: #d1d5db;
+  --error-color: #ef4444;
+
+  /* radius */
+  --radius: 6px;
+  --radius-lg: 16px;
+
+  /* shadow */
+  --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
