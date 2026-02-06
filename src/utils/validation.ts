@@ -80,3 +80,27 @@ export const validateSignup = (data: SignupData) => {
       : null)
   return cleanErrors(errors)
 }
+type LoginData = {
+  email?: string
+  password?: string
+}
+export const validateLogin = (data: LoginData) => {
+  const errors: Partial<Record<keyof LoginData, string | null>> = {}
+  errors.email =
+    validateRequired(data.email, 'Email is required') ||
+    validateRegex(
+      data.email,
+      emailRegex,
+      'Email format is not correct (ex:abc@gmail.com)'
+    )
+  errors.password =
+    validateRequired(data.password, 'password is required') ||
+    validateRegex(
+      data.password,
+      passwordRegex,
+      'Password must be at least 8 characters long and include 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.'
+    )
+  return cleanErrors(errors)
+}
+
+

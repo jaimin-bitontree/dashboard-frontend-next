@@ -22,7 +22,11 @@
   /* shadow */
   --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
-
+.auth-link {
+  color: #1e3a8a;
+  font-weight: 600;
+  text-decoration: none;
+}
 
 /* media query */
 
