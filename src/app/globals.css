@@ -22,4 +22,83 @@
   /* shadow */
   --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
+.auth-link {
+  color: #1e3a8a;
+  font-weight: 600;
+  text-decoration: none;
+}
 
+/* media query */
+
+@media (max-width: 768px) {
+  .two-column {
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .left-panel {
+    display: none !important;
+  }
+
+  .right-panel {
+    padding: 2rem !important;
+  }
+  .form-card {
+    gap: 0.3rem !important;
+  }
+}
+
+@media (max-width: 321px) {
+  .form-label {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .form-input {
+    padding: 0.8rem;
+  }
+}
+
+/* reset and forgot password media query */
+
+@media (max-width: 321px) {
+  .auth-wrapper {
+    width: 310px !important;
+    padding: 0.4rem !important;
+  }
+
+  .auth-wrapper h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 322px) and (max-width: 376px) {
+  .auth-wrapper {
+    width: 350px;
+    padding: 5px;
+  }
+}
+
+@media (min-width: 378px) and (max-width: 426px) {
+  .auth-card {
+    padding: 5px;
+  }
+
+  .auth-wrapper h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (min-width: 429px) and (max-width: 769px) {
+  .auth-wrapper {
+    width: 500px;
+    padding: 0.8rem;
+  }
+
+  .auth-wrapper h2 {
+    font-size: 2.5rem;
+  }
+}
