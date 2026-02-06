@@ -1,0 +1,29 @@
+.custom-button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 0.3rem;
+}
+.custom-button:hover {
+  background-color: var(--primary-hover);
+}
+.custom-button:active {
+  transform: scale(0.98);
+}
+.custom-button:disabled {
+  background-color: var(--primary-disabled);
+  cursor: not-allowed;
+}
