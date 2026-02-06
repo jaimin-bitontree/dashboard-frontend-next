@@ -30,15 +30,14 @@
 
 /* media query */
 
-@media (max-width:768px) {
-
+@media (max-width: 768px) {
   .two-column {
     flex-direction: column;
     height: auto;
     width: 100%;
     max-width: 420px;
   }
- 
+
   .left-panel {
     display: none !important;
   }
@@ -59,5 +58,47 @@
 
   .form-input {
     padding: 0.8rem;
+  }
+}
+
+/* reset and forgot password media query */
+
+@media (max-width: 321px) {
+  .auth-wrapper {
+    width: 310px !important;
+    padding: 0.4rem !important;
+  }
+
+  .auth-wrapper h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 322px) and (max-width: 376px) {
+  .auth-wrapper {
+    width: 350px;
+    padding: 5px;
+  }
+}
+
+@media (min-width: 378px) and (max-width: 426px) {
+  .auth-card {
+    padding: 5px;
+  }
+
+  .auth-wrapper h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (min-width: 429px) and (max-width: 769px) {
+  .auth-wrapper {
+    width: 500px;
+    padding: 0.8rem;
+  }
+
+  .auth-wrapper h2 {
+    font-size: 2.5rem;
   }
 }

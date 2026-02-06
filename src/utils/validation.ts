@@ -103,4 +103,30 @@ export const validateLogin = (data: LoginData) => {
   return cleanErrors(errors)
 }
 
-
+type ResetPasswordData={
+    oldPassword:string,
+    newPassword:string,
+    confirmPassword:string
+}
+export const validateResetPassword = (data:ResetPasswordData) => {
+  const errors: Partial<Record<keyof ResetPasswordData, string | null>> = {}
+  errors.oldPassword =
+    validateRequired(data.oldPassword, 'password is required') ||
+    validateRegex(
+      data.oldPassword,
+      passwordRegex,
+      'Password must be at least 8 characters long and include 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.'
+    )
+  errors.newPassword =
+    validateRequired(data.newPassword, 'password is required') ||
+    validateRegex(
+      data.newPassword,
+      passwordRegex,
+      'Password must be at least 8 characters long and include 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.'
+    )
+  errors.confirmPassword =
+    validateRequired(data.confirmPassword, 'Confirm password is required') ||
+    (data.newPassword?.trim() !== data.confirmPassword?.trim() ?
+      'Passwords do not match':undefined)
+  return cleanErrors(errors)
+}
