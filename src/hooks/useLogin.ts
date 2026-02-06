@@ -1,9 +1,10 @@
+'use client'
+
 import React, { useState } from 'react'
 import { validateLogin } from '../utils/validation'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 
-// import { useProfileContext } from '../context/ProfileContext'
 import axios from 'axios'
 import { api } from '@/services/axios'
 type LoginFormData = {
@@ -13,7 +14,6 @@ type LoginFormData = {
 export const useLogin = () => {
   const router = useRouter()
 
-  //   const {fetchUser} = useProfileContext()
   const [formData, setFormData] = useState<LoginFormData>({
     email: '',
     password: '',
@@ -62,7 +62,6 @@ export const useLogin = () => {
     setIsLoading(true)
     try {
       const res = await api.post('/auth/login', formData)
-    //   localStorage.setItem('token', res.data.token)
       console.log('login success:', res)
       toast.success('Login Successfully')
 

@@ -18,7 +18,11 @@ function ResetPassword() {
     <div className="resetpassword-page">
       <div className="auth-wrapper resetPassword-wrapper">
         <h2>Reset Password</h2>
-        <form action="" onSubmit={handleSubmit} className="auth-card reset-card">
+        <form
+          action=""
+          onSubmit={handleSubmit}
+          className="auth-card reset-card"
+        >
           <Input
             onBlur={handleBlur}
             err={touched.oldPassword ? errors.oldPassword : ''}
@@ -26,7 +30,6 @@ function ResetPassword() {
             label="Old Password"
             type="password"
             placeholder="Enter a Old Password"
-            required
             onChange={handleChange}
             value={formData.oldPassword}
           />
@@ -37,7 +40,6 @@ function ResetPassword() {
             label="New Password"
             type="password"
             placeholder="Enter a New Password"
-            required
             onChange={handleChange}
             value={formData.newPassword}
           />

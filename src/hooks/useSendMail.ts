@@ -1,37 +1,33 @@
 'use client'
 
-import { useState } from 'react'
-import { validateResetPassword } from '../utils/validation'
+import React, { useState } from 'react'
+import { validateEmail } from '../utils/validation'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
-
 import axios from 'axios'
 import { api } from '@/services/axios'
-type ResetPasswordData = {
-  oldPassword: string
-  newPassword: string
-  confirmPassword: string
+type EmailData = {
+  email: string
 }
-export const useResetPassword = () => {
+export const useSendMail = () => {
   const router = useRouter()
-  const [formData, setFormData] = useState<ResetPasswordData>({
-    oldPassword: '',
-    newPassword: '',
-    confirmPassword: '',
+  const [formData, setFormData] = useState<EmailData>({
+    email: '',
   })
   const [errors, setErrors] = useState<
-    Partial<Record<keyof ResetPasswordData, string>>
-  >({})
-  const [touched, setTouched] = useState<
-    Partial<Record<keyof ResetPasswordData, boolean>>
+    Partial<Record<keyof EmailData, string>>
   >({})
   const [isLoading, setIsLoading] = useState(false)
+  const [touched, setTouched] = useState<
+    Partial<Record<keyof EmailData, boolean>>
+  >({})
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    const field = name as keyof ResetPasswordData
+    const field = name as keyof EmailData
     setFormData((prev) => ({
       ...prev,
-      [field]: value,
+      [field]: field === 'email' ? value.toLowerCase() : value,
     }))
     if (touched[field]) {
       setErrors((prev) => ({ ...prev, [field]: undefined }))
@@ -39,9 +35,10 @@ export const useResetPassword = () => {
   }
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { name } = e.target
-    const field = name as keyof ResetPasswordData
+    const field = name as keyof EmailData
+
     setTouched((prev) => ({ ...prev, [field]: true }))
-    const validationErrors = validateResetPassword(formData)
+    const validationErrors = validateEmail(formData)
     setErrors((prev) => ({
       ...prev,
       [field]: validationErrors[field],
@@ -50,49 +47,42 @@ export const useResetPassword = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (isLoading) return
-    setTouched({
-      oldPassword: true,
-      newPassword: true,
-      confirmPassword: true,
-    })
-    const validationErrors = validateResetPassword(formData)
+    setTouched({ email: true })
+    const validationErrors = validateEmail(formData)
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors)
       return
     }
+    setErrors({})
     setIsLoading(true)
     try {
-      await api.put('/auth/reset-password', formData)
-      toast.success('Password Updated Successfully')
-      localStorage.removeItem('token')
+      await api.post('/auth/send-Email', formData)
+      toast.success('Email Send Successfully')
       router.push('/login')
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         toast.error(
           error.response?.data?.error ||
             error.response?.data?.message ||
-            'Reset password failed'
+            'Failed to send reset email'
         )
       }
     } finally {
       setIsLoading(false)
-      setFormData({
-        oldPassword: '',
-        newPassword: '',
-        confirmPassword: '',
-      })
       setErrors({})
       setTouched({})
+      setFormData({
+        email: '',
+      })
     }
   }
-
   return {
+    handleBlur,
+    touched,
     formData,
     errors,
-    touched,
     isLoading,
     handleChange,
-    handleBlur,
     handleSubmit,
   }
 }

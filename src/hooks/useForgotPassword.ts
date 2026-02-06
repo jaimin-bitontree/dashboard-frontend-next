@@ -1,47 +1,42 @@
 'use client'
-
 import { useState } from 'react'
-import { validateResetPassword } from '../utils/validation'
+import { validateForgotPassword } from '../utils/validation'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
-
 import axios from 'axios'
 import { api } from '@/services/axios'
-type ResetPasswordData = {
-  oldPassword: string
+type ForgotPasswordData = {
   newPassword: string
   confirmPassword: string
 }
-export const useResetPassword = () => {
+export const useForgotPassword = (token: string | string[]) => {
   const router = useRouter()
-  const [formData, setFormData] = useState<ResetPasswordData>({
-    oldPassword: '',
+  const [formData, setFormData] = useState<ForgotPasswordData>({
     newPassword: '',
     confirmPassword: '',
   })
   const [errors, setErrors] = useState<
-    Partial<Record<keyof ResetPasswordData, string>>
+    Partial<Record<keyof ForgotPasswordData, string>>
   >({})
   const [touched, setTouched] = useState<
-    Partial<Record<keyof ResetPasswordData, boolean>>
+    Partial<Record<keyof ForgotPasswordData, boolean>>
   >({})
   const [isLoading, setIsLoading] = useState(false)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    const field = name as keyof ResetPasswordData
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }))
+    const field = name as keyof ForgotPasswordData
+
+    setFormData((prev) => ({ ...prev, [field]: value }))
     if (touched[field]) {
       setErrors((prev) => ({ ...prev, [field]: undefined }))
     }
   }
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { name } = e.target
-    const field = name as keyof ResetPasswordData
+    const field = name as keyof ForgotPasswordData
+
     setTouched((prev) => ({ ...prev, [field]: true }))
-    const validationErrors = validateResetPassword(formData)
+    const validationErrors = validateForgotPassword(formData)
     setErrors((prev) => ({
       ...prev,
       [field]: validationErrors[field],
@@ -51,48 +46,50 @@ export const useResetPassword = () => {
     e.preventDefault()
     if (isLoading) return
     setTouched({
-      oldPassword: true,
       newPassword: true,
       confirmPassword: true,
     })
-    const validationErrors = validateResetPassword(formData)
+    const validationErrors = validateForgotPassword(formData)
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors)
       return
     }
+    setErrors({})
     setIsLoading(true)
     try {
-      await api.put('/auth/reset-password', formData)
+      const res = await api.put('/auth/forgot-password', {
+        token,
+        newPassword: formData.newPassword,
+        confirmPassword: formData.confirmPassword,
+      })
+      console.log('password updated', res)
       toast.success('Password Updated Successfully')
-      localStorage.removeItem('token')
       router.push('/login')
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         toast.error(
           error.response?.data?.error ||
             error.response?.data?.message ||
-            'Reset password failed'
+            'reset password failed'
         )
       }
     } finally {
       setIsLoading(false)
+      setErrors({})
+      setTouched({})
       setFormData({
-        oldPassword: '',
         newPassword: '',
         confirmPassword: '',
       })
-      setErrors({})
-      setTouched({})
     }
   }
-
   return {
     formData,
     errors,
-    touched,
     isLoading,
     handleChange,
-    handleBlur,
     handleSubmit,
+    handleBlur,
+    touched,
   }
 }

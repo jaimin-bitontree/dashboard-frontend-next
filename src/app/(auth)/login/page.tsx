@@ -67,7 +67,7 @@ function Login() {
             </Link>
           </p>
 
-          <Link className="auth-link" href="/forgot-password-request">
+          <Link className="auth-link" href="/send-mail">
             Forgot password?
           </Link>
         </div>

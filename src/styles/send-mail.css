@@ -1,0 +1,45 @@
+.mailsend-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-page);
+  padding: 1rem;
+}
+.request-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--white);
+  flex-direction: column;
+  /* min-width: 400px; */
+  width: 400px;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+}
+.request-card {
+  width: 100%;
+  max-width: 720px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 0.2rem;
+  box-sizing: border-box;
+  margin-bottom: 0.3rem;
+}
+.request-wrapper h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--text-dark);
+  font-size: 1.8rem;
+}
+.request-wrapper p {
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--text-gray);
+  font-size: 0.8rem;
+  font-weight: 600;
+}

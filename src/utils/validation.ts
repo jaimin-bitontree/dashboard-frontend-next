@@ -130,3 +130,33 @@ export const validateResetPassword = (data:ResetPasswordData) => {
       'Passwords do not match':undefined)
   return cleanErrors(errors)
 }
+type EmailData={
+    email:string
+}
+export const validateEmail = (data:EmailData) => {
+  const errors:Partial<Record<keyof EmailData, string | null>> = {}
+
+  errors.email =
+    validateRequired(data.email, 'Email is required') ||
+    validateRegex(data.email, emailRegex, 'Email format is not correct')
+
+  return cleanErrors(errors)
+}
+type ForgotPasswordData = {
+    newPassword:string,
+    confirmPassword:string
+}
+export const validateForgotPassword = (data:ForgotPasswordData) => {
+  const errors:Partial<Record<keyof ForgotPasswordData, string | null>> = {}
+
+  errors.newPassword =
+    validateRequired(data.newPassword, 'New password is required') ||
+    validateRegex(data.newPassword, passwordRegex, 'Password must be at least 8 characters long and include 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.')
+
+  errors.confirmPassword =
+    validateRequired(data.confirmPassword, 'Confirm password is required') ||
+    (data.newPassword?.trim() !== data.confirmPassword?.trim() ?
+      'Passwords do not match':undefined)
+
+  return cleanErrors(errors)
+}
