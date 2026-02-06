@@ -72,12 +72,12 @@ export const useSignup = () => {
       const res = await api.post('/auth/signup', formData)
       console.log('Signup success:', res)
       toast.success('Sign Up Successfully')
-      setFormData({
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-      })
+    //   setFormData({
+    //     name: '',
+    //     email: '',
+    //     password: '',
+    //     confirmPassword: '',
+    //   })
       setErrors({})
       setTouched({})
       router.push('/login')

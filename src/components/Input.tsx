@@ -7,8 +7,8 @@ type InputProps = {
 function Input({ label, err, ...props }: InputProps) {
   return (
     <div className="input-group">
-      <label>{label}</label>
-      <input {...props} />
+      <label className='form-label'>{label}</label>
+      <input className='form-input' {...props} />
       <small className="error">{err || '\u00A0'}</small>
     </div>
   )

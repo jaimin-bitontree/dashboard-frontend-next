@@ -33,7 +33,7 @@
   align-items: center;
 }
 .signup-hero{
-  widows: 100%;
+  width: 100%;
   max-width: 420px;
   height: auto;
   object-fit: contain;
@@ -88,23 +88,4 @@
 
 .auth-link:hover {
   text-decoration: underline;
-}
-@media (max-width: 768px) {
-  .signup-container {
-    flex-direction: column;
-    height: auto;
-    width: 100%;
-    max-width: 420px;
-  }
-
-  .signup-left {
-    display: none;
-  }
-
-  .signup-right {
-    padding: 2rem;
-  }
-  .signup-card {
-    gap: 0.3rem;
-  }
 }

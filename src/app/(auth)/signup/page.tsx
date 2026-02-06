@@ -20,13 +20,9 @@ function Signup() {
   } = useSignup()
   return (
     <div className="signup-page">
-      <div className="signup-container">
-        <div className="signup-left">
-          {/* <h1>Welcome!</h1>
-          <h2>
-            Create your <br />
-            ACCOUNT
-          </h2> */}
+      <div className="signup-container two-column">
+        <div className="signup-left left-panel">
+        
           <Image
             src="/assets/signup-hero.png"
             alt="Signup illustration"
@@ -35,11 +31,11 @@ function Signup() {
             height={400}
           ></Image>
         </div>
-        <div className="signup-right">
+        <div className="signup-right right-panel">
           <MdSupervisorAccount size={35} />
 
           <h2>SignUp</h2>
-          <form onSubmit={handleSubmit} action="" className="signup-card">
+          <form onSubmit={handleSubmit} action="" className="signup-card form-card">
             <Input
               err={touched.name ? (errors.name ?? '') : ''}
               value={formData.name}
