@@ -103,12 +103,12 @@ export const validateLogin = (data: LoginData) => {
   return cleanErrors(errors)
 }
 
-type ResetPasswordData={
-    oldPassword:string,
-    newPassword:string,
-    confirmPassword:string
+type ResetPasswordData = {
+  oldPassword: string
+  newPassword: string
+  confirmPassword: string
 }
-export const validateResetPassword = (data:ResetPasswordData) => {
+export const validateResetPassword = (data: ResetPasswordData) => {
   const errors: Partial<Record<keyof ResetPasswordData, string | null>> = {}
   errors.oldPassword =
     validateRequired(data.oldPassword, 'password is required') ||
@@ -126,15 +126,16 @@ export const validateResetPassword = (data:ResetPasswordData) => {
     )
   errors.confirmPassword =
     validateRequired(data.confirmPassword, 'Confirm password is required') ||
-    (data.newPassword?.trim() !== data.confirmPassword?.trim() ?
-      'Passwords do not match':undefined)
+    (data.newPassword?.trim() !== data.confirmPassword?.trim()
+      ? 'Passwords do not match'
+      : undefined)
   return cleanErrors(errors)
 }
-type EmailData={
-    email:string
+type EmailData = {
+  email: string
 }
-export const validateEmail = (data:EmailData) => {
-  const errors:Partial<Record<keyof EmailData, string | null>> = {}
+export const validateEmail = (data: EmailData) => {
+  const errors: Partial<Record<keyof EmailData, string | null>> = {}
 
   errors.email =
     validateRequired(data.email, 'Email is required') ||
@@ -143,20 +144,38 @@ export const validateEmail = (data:EmailData) => {
   return cleanErrors(errors)
 }
 type ForgotPasswordData = {
-    newPassword:string,
-    confirmPassword:string
+  newPassword: string
+  confirmPassword: string
 }
-export const validateForgotPassword = (data:ForgotPasswordData) => {
-  const errors:Partial<Record<keyof ForgotPasswordData, string | null>> = {}
+export const validateForgotPassword = (data: ForgotPasswordData) => {
+  const errors: Partial<Record<keyof ForgotPasswordData, string | null>> = {}
 
   errors.newPassword =
     validateRequired(data.newPassword, 'New password is required') ||
-    validateRegex(data.newPassword, passwordRegex, 'Password must be at least 8 characters long and include 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.')
+    validateRegex(
+      data.newPassword,
+      passwordRegex,
+      'Password must be at least 8 characters long and include 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.'
+    )
 
   errors.confirmPassword =
     validateRequired(data.confirmPassword, 'Confirm password is required') ||
-    (data.newPassword?.trim() !== data.confirmPassword?.trim() ?
-      'Passwords do not match':undefined)
+    (data.newPassword?.trim() !== data.confirmPassword?.trim()
+      ? 'Passwords do not match'
+      : undefined)
 
+  return cleanErrors(errors)
+}
+type ProfileUpdateData = {
+  age: string
+  name: string
+  gender:string
+}
+export const validateProfileUpdate = (data: ProfileUpdateData) => {
+  const errors: Partial<Record<keyof ProfileUpdateData, string | null>> = {}
+  errors.age = validateAge(data.age, 'Age is required')
+  errors.name =
+    validateRequired(data.name, 'name is required') ||
+    validateRegex(data.name, nameRegex, 'Only alphabets are allowed')
   return cleanErrors(errors)
 }
