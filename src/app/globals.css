@@ -102,3 +102,30 @@
     font-size: 2.5rem;
   }
 }
+
+
+/* for profile page media query */
+@media (max-width: 321px) {
+  .profile-wrapper {
+    width: 310px;
+    padding: 0.6rem;
+  }
+  .profile-action {
+    gap: 34px;
+  }
+}
+@media (min-width: 322px) and (max-width: 376px) {
+  .profile-wrapper {
+    width: 350px;
+    padding: 0.8rem;
+  }
+  .profile-action {
+    gap: 84px;
+  }
+}
+@media (min-width: 429px) and (max-width: 769px) {
+  .profile-wrapper {
+    width: 500px;
+    padding: 0.8rem;
+  }
+}
