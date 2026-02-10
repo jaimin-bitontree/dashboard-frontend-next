@@ -1,5 +1,6 @@
 'use client'
 import { api } from '@/services/axios'
+import axios from 'axios'
 import {
   createContext,
   ReactNode,
@@ -37,9 +38,13 @@ export const ProfileProvider = ({ children }: ProfileProviderProps) => {
       const res = await api.get('/auth/get-profile')
       setProfile(res.data.payload)
       setError(null)
-    } catch (err) {
-      console.error('Fetch profile error:', err)
-      setError('Failed to fetch profile')
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err) && err.response?.status === 401) {
+        setProfile(null)
+        setError(null)
+      } else {
+        setError('Failed to fetch profile')
+      }
     } finally {
       setLoading(false)
     }

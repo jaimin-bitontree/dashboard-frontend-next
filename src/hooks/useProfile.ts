@@ -87,6 +87,7 @@ export const useProfile = () => {
           : prev
       )
       setIsEditing(false)
+    //   fetchUser()
     } catch (error: unknown) {
       console.log('update profile error:', error)
       if (axios.isAxiosError(error)) {
