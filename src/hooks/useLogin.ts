@@ -7,12 +7,14 @@ import { useRouter } from 'next/navigation'
 
 import axios from 'axios'
 import { api } from '@/services/axios'
+import { useProfileContext } from '@/context/ProfileContext'
 type LoginFormData = {
   email: string
   password: string
 }
 export const useLogin = () => {
   const router = useRouter()
+  const { fetchUser } = useProfileContext()
 
   const [formData, setFormData] = useState<LoginFormData>({
     email: '',
@@ -64,8 +66,8 @@ export const useLogin = () => {
       const res = await api.post('/auth/login', formData)
       console.log('login success:', res)
       toast.success('Login Successfully')
-
       router.push('/dashboard')
+      fetchUser()
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         toast.error(

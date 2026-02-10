@@ -15,7 +15,6 @@ export function middleware(req: NextRequest) {
     '/signup',
   ]
 
-  //  Protect private routes 
   const isProtectedRoute = protectedRoutes.some(
     route => pathname === route || pathname.startsWith(`${route}/`)
   )
@@ -26,7 +25,6 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(loginUrl)
   }
 
-  // Redirect logged-in users away from auth routes
   const isAuthRoute = authRoutes.includes(pathname)
 
   if (token && isAuthRoute) {

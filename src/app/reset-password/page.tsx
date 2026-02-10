@@ -50,7 +50,6 @@ function ResetPassword() {
             label="Confirm Password"
             type="password"
             placeholder="Enter a Confirm Password"
-            required
             onChange={handleChange}
             value={formData.confirmPassword}
           />

@@ -44,6 +44,7 @@
 
   .right-panel {
     padding: 2rem !important;
+    height: 100%;
   }
   .form-card {
     gap: 0.3rem !important;
